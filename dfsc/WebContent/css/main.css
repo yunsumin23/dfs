@@ -1,0 +1,30 @@
+section {
+	width: 1300px;
+	margin: 0 auto;
+	margin-top: 100px;
+	text-align: center;
+}
+
+section input[type="text"] {
+	width: 300px;
+	height: 44px;
+	font-size: 15px;
+}
+section select {
+	widows: 100px;
+	height: 50px;
+	font-size: 15px;
+}
+section input[type="submit"] {
+	width: 100px;
+	height: 50px;
+	font-size: 15px;
+	background-color: #cccccc;
+	border: 
+}
+footer{
+	width: 1300px;
+	margin: 0 auto;
+	margin-top: 150px;
+	text-align: center;
+}

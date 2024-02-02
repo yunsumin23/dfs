@@ -1,0 +1,93 @@
+@font-face{
+   font-family:'DNFForgedBlade';font-style:normal;font-weight:300;
+   src:url('//cdn.df.nexon.com/img/common/font/DNFForgedBlade-Light.otf')format('opentype')}
+body{
+	font-family: 'DNFForgedBlade';
+	font-size: 14px;
+}
+nav {
+	width: 1300px;
+	margin: 0 auto;
+}
+nav button {
+	width: 100px;
+	height: 40px;
+	background-color: #f3f3f3;
+	font-size: 16px;
+	border-radius: 15px; 
+	margin-bottom: 30px;
+}
+/* 캐릭터들 이미지 & 정보 상자 */
+#first_section{
+	margin-top: 150px;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 20px;
+	width: 1300px;
+	margin: 0 auto;
+	
+}
+section #box {
+	padding:7px;
+	border: 1px solid #cccccc;
+	border-radius:7px;
+	width: 100%;
+	text-align: center;
+}
+
+section #server {
+/* 	padding: 2px; */
+	padding-left: 6px;
+	padding-right: 6px;
+/* 	margin-top: 15px; */
+	margin-right: 170px;
+	font-size: 14px;
+	border: 1px solid #cccccc; 
+	border-radius: 7px;
+	background-color: #cccccc;
+}
+section #characterName {
+/* 	text-align: center; */
+	font-weight: bold;
+	font-size: 20px;
+}
+
+/* 스케줄러 */
+table{
+	width: 1300px;
+	margin: 0 auto;
+	margin-top: 30px;
+}
+table td {
+	width: 430px;
+}
+table #d_title {
+	font-size: 20px;
+	font-weight: bold;
+	padding-bottom: 15px;
+}
+table #first_td #d_name {
+	font-size: 16.5px;
+}
+/*테이블 세로기준 위로 정렬*/
+table #second_td {
+	vertical-align: top;
+}
+/*테이블 세로기준 아래로 정렬*/
+table #third_td {
+	vertical-align: bottom;
+}
+#third_td input[type="submit"] {
+	width: 150px;
+	height: 80px;
+	background-color: #f3f3f3;
+	font-size: 18px;
+	border-radius: 15px; 
+}
+
+footer{
+	width: 1300px;
+	margin: 0 auto;
+	margin-top: 150px;
+	text-align: center;
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper_name">
+	<insert id="cInsertID" parameterType="dfS.ysm.DTO.CharacterDTO">
+		insert into dfs.info (serverId, characterId, characterName, level, jobId, jobGrowId, jobName, jobGrowName, fame, adventureName, guildId, guildName, time, ispins, hyerang, aduk, gaegeon, ilkal, hakal, emyeon)
+		values(#{serverId},#{characterId},#{characterName},#{level},#{jobId},#{jobGrowId},#{jobName},#{jobGrowName},#{fame},#{adventureName},#{guildId},#{guildName},#{time},#{ispins},#{hyerang},#{aduk},#{gaegeon},#{ilkal},#{hakal},#{emyeon})
+		ON DUPLICATE KEY UPDATE serverId = VALUES(serverId), characterId = VALUES(characterId), characterName = VALUES(characterName), 
+		level = VALUES(level), jobId = VALUES(jobId), jobGrowId = VALUES(jobGrowId), jobName = VALUES(jobName), 
+		jobGrowName = VALUES(jobGrowName), fame = VALUES(fame), adventureName = VALUES(adventureName), guildId = VALUES(guildId), guildName = VALUES(guildName), time = VALUES(time), ispins = VALUES(ispins), 
+		hyerang = VALUES(hyerang), aduk = VALUES(aduk), gaegeon = VALUES(gaegeon), ilkal = VALUES(ilkal), hakal = VALUES(hakal), emyeon = VALUEs(emyeon);
+	</insert>
+	
+	<select id="cSearchID" resultType="dfS.ysm.DTO.CharacterDTO">
+		select * from dfs.info where characterName = #{characterName}
+	</select>
+	
+	<select id="cSearchAdvenID" resultType="dfS.ysm.DTO.CharacterDTO">
+		SELECT * FROM dfs.info where adventureName = #{adventureName} ORDER BY fame DESC
+	</select>
+</mapper>
