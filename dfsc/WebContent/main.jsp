@@ -27,6 +27,7 @@
 			<input type="submit" value="검색">
 		</form>
 	</section>
+
 	<footer>
 		<a href="http://developers.neople.co.kr" target="_blank">
 		<img src="img/neople.png" alt="Neople 오픈 API"/ ></a>

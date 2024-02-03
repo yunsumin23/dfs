@@ -19,6 +19,22 @@
 <body>
 	<nav>
 		<button onclick="location.href='main.jsp'">메인으로</button>
+		<form id="searchForm" action="main.Controller?url=CSearch"
+			method="POST">
+			<select name="server">
+				<option value="all">전체</option>
+				<option value="adven">모험단</option>
+				<option value="anton">안톤</option>
+				<option value="bakal">바칼</option>
+				<option value="cain">카인</option>
+				<option value="casillas">카시야스</option>
+				<option value="deregie">디레지에</option>
+				<option value="hilder">힐더</option>
+				<option value="prey">프레이</option>
+				<option value="siroco">시로코</option>
+			</select> <input type="text" id="text" name="name" placeholder="캐릭터명을 입력해주세요.">
+			<input type="submit" value="검색">
+		</form>
 	</nav>
 	<section id="first_section">
 		<%
@@ -47,7 +63,43 @@
 			int hakal2 = 0;
 			int bakal2 = 0;
 			int aduk2 = 0;
+			
+			int ispins3Step = 0; //이핀 3단 1캐릭씩 파티플
+			int ispins3StepBg = 0; //이핀 3단 4캐릭씩 벞교
+			int ispins3StepBjg = 0; //이핀 3단 2캐릭씩 쩔 교환
+			
+			int gaegeonS = 0; //개전 솔플
+			int gaegeonP = 0; //개전 파티플
+			int gaegeonBg = 0; //개전 4캐릭씩 벞교
+			int gaegeonJ = 0; //개전 1캐릭씩 쩔
+			int gaegeonBjg = 0; //개전 2캐릭씩 쩔 교환
 
+			int hyerang3Step = 0; //회랑 3단 1캐릭씩 파티플
+			int hyerang3StepBg = 0; //회랑 3단 4캐릭씩 벞교
+			int hyerang3StepBjg = 0; //회랑 3단 2캐릭씩 쩔 벞교
+			int hyerang4Step = 0; //회랑 초월 1캐릭씩 파티플
+			int hyerang4StepBg = 0; //회랑 초월 4캐릭씩 벞교
+			int hyerang4StepBhg = 0; //회랑 초월 2캐릭씩 쩔 벞교
+			
+			int bakalN = 0; // 일칼 1캐릭
+			int bakalNb = 0; // 일칼 4캐릭씩 벞교
+			int bakalNj = 0; // 일칼 1캐릭 쩔
+			int bakalNB6jg = 0; // 일칼 6인쩔 3캐릭
+			int bakalNB4jg = 0; // 일칼 4인쩔 2캐릭
+			int bakalNB2jg = 0; // 일칼 2인쩔 2캐릭
+			int bakalH = 0; // 하칼 1캐릭
+			int bakalHb = 0; // 하칼 4캐릭씩 벞교
+			int bakalHj = 0; // 하칼 1캐릭 쩔
+			int bakalHB6jg = 0; //하칼 6인쩔 3캐릭
+			int bakalHB4jg = 0; //하칼 4인쩔 2캐릭
+			int bakalHB2jg = 0; //하칼 2인쩔 2캐릭
+			
+			int whiteSeaH = 0; //백해 마스터 1캐릭
+			int whiteSeaHb2 = 0; //백해 마스터 벞교 2캐릭
+			int whiteSeaHb4 = 0; //백해 마스터 벞교 4캐릭
+			
+			
+			
 			if (list != null) {
 				for (int i = 0; i < list.size(); i++) {
 					int ispinsMark = 0;
@@ -226,11 +278,11 @@
 	 			}
 			%>
 			</span> 
-			<span><img src="https://img-api.neople.co.kr/df/servers/<%=serverId%>/characters/<%=characterId%>?zoom=1"></span>
+			<span><img id='c_img' src="https://img-api.neople.co.kr/df/servers/<%=serverId%>/characters/<%=characterId%>?zoom=1"></span>
 			<span>Lv<%=level%></span> 
 			<span><%=jobGrowName%></span><br> 
 			<span id="characterName"><%=characterName%></span><br> 
-			<span>★<%=fame%></span>
+			<span><img src="img/fame.png" alt="명성" width="11px" height="10px" /> <%=fame%></span>
 
 		</article>
 		<%
@@ -252,10 +304,10 @@
 				<span id='d_title'>입장 가능 던전</span>
 			</td>
 			<td>
-				<span id='d_title'>클리어  횟수 / 입장 가능 캐릭터 수</span>>
+				<span id='d_title'>클리어  횟수 / 입장 가능 캐릭터 수</span>
 			</td>
 			<td>
-				<span></span>>
+				<span></span>
 			</td>
 		</tr>
 	
@@ -270,43 +322,43 @@
 							out.println("<span id='d_name'>코드네임 게이볼그</span> 31489<span id='d_name'> : " + gayvolg + "</span><br>");
 						}
 						if (myma > 0) {
-							out.println("<span id='d_name'>마이스터의 실험실(마스터)</span> 33043 : " + myma + "<br>");
+							out.println("<span id='d_name'>마이스터의 실험실(마스터)</span> 33043<span id='d_name'> : " + myma + "</span><br>");
 						}
 						if (espins > 0) {
-							out.println("<span id='d_name'>이스핀즈</span> 33043 : " + espins + "<br>");
+							out.println("<span id='d_name'>이스핀즈</span> 33043<span id='d_name'> : " + espins + "</span><br>");
 						}
 						if (espins2 > 0) {
-							out.println("<span id='d_name'>이스핀즈2</span>: " + espins2 + "<br>");
+							out.println("<span id='d_name'>이스핀즈2</span><span id='d_name'> : " + espins2 + "</span><br>");
 						}
 						if (gaegeon > 0) {
-							out.println("<span id='d_name'>기계혁명:개전</span> 34308 : " + gaegeon + "<br>");
+							out.println("<span id='d_name'>기계혁명:개전</span> 34308<span id='d_name'> : " + gaegeon + "</span><br>");
 						}
 						if (whiteSeaN > 0) {
-							out.println("<span id='d_name'>백해 상급 던전(흰 구름 계곡, 솔리다리스) 노말</span> 36132 : " + whiteSeaN + "<br>");
+							out.println("<span id='d_name'>백해 상급 던전(흰 구름 계곡, 솔리다리스) 노말</span> 36132<span id='d_name'> : " + whiteSeaN + "</span><br>");
 						}
 						if (hyerang > 0) {
-							out.println("<span id='d_name'>차원회랑</span> 38095 : " + hyerang + "<br>");
+							out.println("<span id='d_name'>차원회랑</span> 38095<span id='d_name'> : " + hyerang + "</span><br>");
 						}
 						if (joungjae > 0) {
-							out.println("<span id='d_name'>균형의 중재자</span> 40047 : " + joungjae + "<br>");
+							out.println("<span id='d_name'>균형의 중재자</span> 40047<span id='d_name'> : " + joungjae + "</span><br>");
 						}
 						if (ilkal > 0) {
-							out.println("<span id='d_name'>바칼 레이드(일반)</span> 40047 : " + ilkal + "<br>");
+							out.println("<span id='d_name'>바칼 레이드(일반)</span> 40047<span id='d_name'> : " + ilkal + "</span><br>");
 						}
 						if (emyeon > 0) {
-							out.println("<span id='d_name'>이면 경계</span> 44872 : " + emyeon + "<br>");
+							out.println("<span id='d_name'>이면 경계</span> 44872<span id='d_name'> : " + emyeon + "</span><br>");
 						}
 						if (hakal > 0) {
-							out.println("<span id='d_name'>바칼 레이드(하드)</span> 45247 : " + hakal + "<br>");
+							out.println("<span id='d_name'>바칼 레이드(하드)</span> 45247<span id='d_name'> : " + hakal + "</span><br>");
 						}
 						if (whiteSeaE > 0) {
-							out.println("<span id='d_name'>백해 상급 던전(흰 구름 계곡, 솔리다리스) 익스퍼트</span> 47624 : " + whiteSeaE + "<br>");
+							out.println("<span id='d_name'>백해 상급 던전(흰 구름 계곡, 솔리다리스) 익스퍼트</span> 47624<span id='d_name'> : " + whiteSeaE + "</span><br>");
 						}
 						if (aduk > 0) {
-							out.println("<span id='d_name'>어둑섬</span> 50248 : " + aduk + "<br>");
+							out.println("<span id='d_name'>어둑섬</span> 50248<span id='d_name'> : " + aduk + "</span><br>");
 						}
 						if (whiteSeaM > 0) {
-							out.println("<span id='d_name'>백해 상급 던전(흰 구름 계곡, 솔리다리스) 마스터</span> 54098 : " + whiteSeaM + "<br>");
+							out.println("<span id='d_name'>백해 상급 던전(흰 구름 계곡, 솔리다리스) 마스터</span> 54098<span id='d_name'> : " + whiteSeaM + "</span><br>");
 						}
 					%>
 				</section>
@@ -332,9 +384,9 @@
 			 			case FRIDAY:
 			 				break;
 			 			default:
-							out.println("<span id='d_name'>바칼레이드(기계혁명:개전 | 바칼 레이드(일반) | 바칼 레이드(하드))</span><br>");
+							out.println("<span id='d_name'>바칼레이드</span>(기계혁명:개전 | 바칼 레이드(일반) | 바칼 레이드(하드))<br>");
 							if (bakal2 > 0) {
-								out.println(bakal2 + "/" + bakal + " (" + gaegeon2 + ", " + ilkal2 + ", " + hakal2 + ")");
+								out.println("<span id='d_name'>" + bakal2 + "/" + bakal + " (" + gaegeon2 + ", " + ilkal2 + ", " + hakal2 + ")</span>");
 							}	
 			 			}
 						// 		if (gaegeon2 > 0) {
@@ -350,7 +402,19 @@
 				</section>
 			</td>
 			<td id='third_td'>
-				<section id="second_section">
+				<%
+					int totalTime = (espins + espins2 - ispins2) * 6 + (hyerang - hyerang2) * 4 + (gaegeon - gaegeon2) * 8 +
+					(ilkal -  ilkal2) * 20 + (emyeon - emyeon2) * 7 + (hakal - hakal2) * 20 + (aduk - aduk2) * 10;
+			
+					int hours = totalTime / 60;  // 분을 시간으로 변환
+					int minutes = totalTime % 60;  // 나머지는 분
+
+					out.println("예상 시간 : " + hours + "시간 " + minutes + "분");
+				%>
+			</td>
+		</tr>
+	</table>
+	<section id="adven_update">
 					<%
 						if (list != null) {
 							for (int i = 0; i < list.size(); i++) {
@@ -373,9 +437,6 @@
 						<input type="submit" value="모험단 업데이트">
 					</form>
 				</section>
-			</td>
-		</tr>
-	</table>
 	<footer>
 		<a href="http://developers.neople.co.kr" target="_blank"> <img
 			src="img/neople.png" alt="Neople 오픈 API" />

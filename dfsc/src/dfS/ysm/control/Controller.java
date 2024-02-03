@@ -48,6 +48,20 @@ public class Controller extends HttpServlet {
 				System.out.println(e);
                 System.out.println("dfS.ysm.control.controller 'AdvenAllUpdate' ERROR");
 			}
+        } else if (url.equals("CEnchant") && rq.getMethod().equalsIgnoreCase("POST")) {
+        	inter = AdvenAllSearchExtr.instance();
+        	try {
+				String AdvenAllUpdate = inter.Controller(rq, rs);
+				
+				ConInter resultExtr = CSearchAndInsert.instance();
+            	resultExtr.Controller(rq, rs);
+            	
+				RequestDispatcher re = rq.getRequestDispatcher("search_result.jsp");
+				re.forward(rq, rs);
+			} catch (Exception e) {
+				System.out.println(e);
+                System.out.println("dfS.ysm.control.controller 'AdvenAllUpdate' ERROR");
+			}
         }
     }
 }
