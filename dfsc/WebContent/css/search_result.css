@@ -97,7 +97,8 @@ table #second_td {
 }
 /*테이블 세로기준 아래로 정렬*/
 table #third_td {
-	vertical-align: bottom;
+/* 	vertical-align: bottom; */
+	vertical-align: top;
 }
 #adven_update {
 	width: 1300px;

@@ -13,7 +13,11 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="css/search_result.css">
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="js/search_result.js"></script>
+
+
+</head>
 <title>search_result.jsp</title>
 </head>
 <body>
@@ -28,7 +32,7 @@
 				<option value="bakal">바칼</option>
 				<option value="cain">카인</option>
 				<option value="casillas">카시야스</option>
-				<option value="deregie">디레지에</option>
+				<option value="diregie">디레지에</option>
 				<option value="hilder">힐더</option>
 				<option value="prey">프레이</option>
 				<option value="siroco">시로코</option>
@@ -235,7 +239,7 @@
  				out.print("카인");
  			} else if (serverId.equals("casillas")) {
  				out.print("카시야스");
- 			} else if (serverId.equals("deregie")) {
+ 			} else if (serverId.equals("diregie")) {
  				out.print("디레지에");
  			} else if (serverId.equals("hilder")) {
  				out.print("힐더");
@@ -307,7 +311,7 @@
 				<span id='d_title'>클리어  횟수 / 입장 가능 캐릭터 수</span>
 			</td>
 			<td>
-				<span></span>
+				<span id='d_title'>던캐줄 예상 시간</span>
 			</td>
 		</tr>
 	
@@ -366,29 +370,32 @@
 			<td id="second_td">
 				<section id="third_section">
 					<%
-						if (ispins2 > 0) {
+						if (espins + espins2 > 0) {
 							out.println("<span id='d_name'>이스핀즈: " + ispins2 + "/" + (espins + espins2) + "</span><br>");
 						}
-						if (hyerang2 > 0) {
+						if (hyerang > 0) {
 							out.println("<span id='d_name'>차원회랑: " + hyerang2 + "/" + hyerang + "</span><br>");
 						}
-						if (emyeon2 > 0) {
+						if (emyeon > 0) {
 							out.println("<span id='d_name'>이면 경계: " + emyeon2 + "/" + emyeon + "</span><br>");
 						}
-						if (aduk2 > 0) {
+						if (aduk > 0) {
 							out.println("<span id='d_name'>어둑섬: " + aduk2 + "/" + aduk + "</span><br>");
 						}
-						switch (dayOfWeek) {
-			 			case THURSDAY:
-			 				break;
-			 			case FRIDAY:
-			 				break;
-			 			default:
-							out.println("<span id='d_name'>바칼레이드</span>(기계혁명:개전 | 바칼 레이드(일반) | 바칼 레이드(하드))<br>");
-							if (bakal2 > 0) {
-								out.println("<span id='d_name'>" + bakal2 + "/" + bakal + " (" + gaegeon2 + ", " + ilkal2 + ", " + hakal2 + ")</span>");
-							}	
-			 			}
+						if (bakal > 0){
+							switch (dayOfWeek) {
+				 			case THURSDAY:
+				 				break;
+				 			case FRIDAY:
+				 				break;
+				 			default:
+								out.println("<span id='d_name'>바칼레이드</span>(기계혁명:개전 | 바칼 레이드(일반) | 바칼 레이드(하드))<br>");
+								if (bakal2 > 0) {
+									out.println("<span id='d_name'>" + bakal2 + "/" + bakal + " (" + gaegeon2 + ", " + ilkal2 + ", " + hakal2 + ")</span>");
+								}	
+				 			}
+						}
+						
 						// 		if (gaegeon2 > 0) {
 						// 			out.println("기계혁명:개전: " + gaegeon + "/" + gaegeon2 + "<br>");
 						// 		}
@@ -403,11 +410,120 @@
 			</td>
 			<td id='third_td'>
 				<%
-					int totalTime = (espins + espins2 - ispins2) * 6 + (hyerang - hyerang2) * 4 + (gaegeon - gaegeon2) * 8 +
-					(ilkal -  ilkal2) * 20 + (emyeon - emyeon2) * 7 + (hakal - hakal2) * 20 + (aduk - aduk2) * 10;
+					int ispinsT = espins + espins2 - ispins2;
+					int hyerangT = hyerang - hyerang2;
+					int gaegeonT = gaegeon - gaegeon2;
+					int ilkalT = ilkal - ilkal2;
+					int emyeonT = emyeon - emyeon2;
+					int hakalT = hakal - hakal2;
+					int adukT = aduk - aduk2;
+					
+					
+					int totalTime = ispinsT * 6 + hyerangT * 4 + gaegeonT * 8 +
+							ilkalT * 20 + emyeonT * 7 + hakalT * 20 + adukT * 10;
 			
 					int hours = totalTime / 60;  // 분을 시간으로 변환
 					int minutes = totalTime % 60;  // 나머지는 분
+				%>
+				<%
+					if(ispinsT >0){
+				%>
+					이스핀즈
+				<%
+					for(int i = 1; i <= ispinsT / 4; i++){
+				%>
+						<input type='radio' value='<%=i%>'>벞교<%=i%>세트
+				<%	
+					}
+				%><br>
+				<%
+				}
+				%>
+				<%
+					if(hyerangT >0){
+				%>
+					차원회랑
+				<%
+					for(int i = 1; i <= hyerangT / 4; i++){
+				%>
+						<input type='radio' value='<%=i%>'>벞교<%=i%>세트
+				<%	
+					}
+				%><br>
+				<%
+				}
+				%>
+				<%
+					if(gaegeonT >0){
+				%>
+					기계혁명 : 개전
+				<%
+					for(int i = 1; i <= gaegeonT / 4; i++){
+				%>
+						<input type='radio' value='<%=i%>'>벞교<%=i%>세트
+				<%	
+					}
+				%><br>
+				<%
+				}
+				%>
+				<%
+					if(gaegeonT >0){
+				%>
+					바칼 레이드(일반)
+				<%
+					for(int i = 1; i <= ilkalT / 4; i++){
+				%>
+						<input type='radio' value='<%=i%>'>벞교<%=i%>세트
+				<%	
+					}
+				%><br>
+				<%
+				}
+				%>
+				<%
+					if(emyeonT >0){
+				%>
+					이면 경계
+				<%
+					for(int i = 1; i <= emyeonT / 4; i++){
+				%>
+						<input type='radio' value='<%=i%>'>벞교<%=i%>세트
+				<%	
+					}
+				%><br>
+				<%
+				}
+				%>
+				<%
+					if(hakalT >0){
+				%>
+					바칼 레이드(하드)
+				<%
+					for(int i = 1; i <= hakalT / 4; i++){
+				%>
+						<input type='radio' value='<%=i%>'>벞교<%=i%>세트
+				<%	
+					}
+				%><br>
+				<%
+				}
+				%>
+				<%
+					if(adukT >0){
+				%>
+					어둑섬
+				<%
+					for(int i = 1; i <= adukT / 4; i++){
+				%>
+						<input type='radio' value='<%=i%>'>벞교<%=i%>세트
+				<%	
+					}
+				%><br>
+				<%
+				}
+				%>
+				<%
 
 					out.println("예상 시간 : " + hours + "시간 " + minutes + "분");
 				%>
