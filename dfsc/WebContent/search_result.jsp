@@ -311,7 +311,7 @@
 				<span id='d_title'>클리어  횟수 / 입장 가능 캐릭터 수</span>
 			</td>
 			<td>
-				<span id='d_title'>던캐줄 예상 시간</span>
+				<span id='d_title'>던케줄 예상 시간</span>
 			</td>
 		</tr>
 	
@@ -410,32 +410,50 @@
 			</td>
 			<td id='third_td'>
 				<%
-					int ispinsT = espins + espins2 - ispins2;
-					int hyerangT = hyerang - hyerang2;
-					int gaegeonT = gaegeon - gaegeon2;
-					int ilkalT = ilkal - ilkal2;
-					int emyeonT = emyeon - emyeon2;
-					int hakalT = hakal - hakal2;
-					int adukT = aduk - aduk2;
+					int ispinsN = (espins + espins2 - ispins2);
+					int hyerangN = (hyerang - hyerang2);
+					int gaegeonN = (gaegeon - gaegeon2);
+					int ilkalN = (ilkal - ilkal2);
+					int emyeonN = (emyeon - emyeon2);
+					int hakalN = (hakal - hakal2);
+					int adukN = (aduk - aduk2);
 					
+					int ispinsT = ispinsN * 6;
+					int hyerangT = hyerangN * 4;
+					int gaegeonT = gaegeonN * 8;
+					int ilkalT = ilkalN * 20;
+					int emyeonT = emyeonN * 7;
+					int hakalT = hakalN * 20;
+					int adukT = adukN * 10;
 					
-					int totalTime = ispinsT * 6 + hyerangT * 4 + gaegeonT * 8 +
-							ilkalT * 20 + emyeonT * 7 + hakalT * 20 + adukT * 10;
+				%>
+
+					<input type="hidden" id="ispinsT" value="<%=ispinsT%>">
+					<input type="hidden" id="hyerangT" value="<%=hyerangT%>">
+					<input type="hidden" id="gaegeonT" value="<%=gaegeonT%>">
+					<input type="hidden" id="ilkalT" value="<%=ilkalT%>">
+					<input type="hidden" id="emyeonT" value="<%=emyeonT%>">
+					<input type="hidden" id="hakalT" value="<%=hakalT%>">
+					<input type="hidden" id="adukT" value="<%=adukT%>">
+				<%	
+					int totalTime = ispinsT + hyerangT + gaegeonT + ilkalT + emyeonT + hakalT + adukT;
 			
 					int hours = totalTime / 60;  // 분을 시간으로 변환
 					int minutes = totalTime % 60;  // 나머지는 분
 				%>
+					<input type="hidden" id="totalTimeElementId" value ="<%=totalTime%>">
 				<%
-					if(ispinsT >0){
+					if(ispinsN >0){
 				%>
 					이스핀즈
+					<select>
 				<%
-					for(int i = 1; i <= ispinsT / 4; i++){
+					for(int i = 1; i <= ispinsN / 4; i++){
 				%>
-						<input type='radio' value='<%=i%>'>벞교<%=i%>세트
+						<option value='<%=i%>'>벞교<%=i%>세트
 				<%	
 					}
-				%><br>
+				%></select><br>
 				<%
 				}
 				%>
@@ -444,9 +462,9 @@
 				%>
 					차원회랑
 				<%
-					for(int i = 1; i <= hyerangT / 4; i++){
+					for(int i = 0; i <= hyerangN / 4; i++){
 				%>
-						<input type='radio' value='<%=i%>'>벞교<%=i%>세트
+						<input type='radio' id="hyerangTn" name="hyerangTn" value='<%=i%>' onclick="hyerangTimeCal();">벞교<%=i%>세트
 				<%	
 					}
 				%><br>
@@ -454,11 +472,11 @@
 				}
 				%>
 				<%
-					if(gaegeonT >0){
+					if(gaegeonN >0){
 				%>
 					기계혁명 : 개전
 				<%
-					for(int i = 1; i <= gaegeonT / 4; i++){
+					for(int i = 1; i <= gaegeonN / 4; i++){
 				%>
 						<input type='radio' value='<%=i%>'>벞교<%=i%>세트
 				<%	
@@ -468,11 +486,11 @@
 				}
 				%>
 				<%
-					if(gaegeonT >0){
+					if(ilkalN >0){
 				%>
 					바칼 레이드(일반)
 				<%
-					for(int i = 1; i <= ilkalT / 4; i++){
+					for(int i = 1; i <= ilkalN / 4; i++){
 				%>
 						<input type='radio' value='<%=i%>'>벞교<%=i%>세트
 				<%	
@@ -482,11 +500,11 @@
 				}
 				%>
 				<%
-					if(emyeonT >0){
+					if(emyeonN >0){
 				%>
 					이면 경계
 				<%
-					for(int i = 1; i <= emyeonT / 4; i++){
+					for(int i = 1; i <= emyeonN / 4; i++){
 				%>
 						<input type='radio' value='<%=i%>'>벞교<%=i%>세트
 				<%	
@@ -496,13 +514,13 @@
 				}
 				%>
 				<%
-					if(hakalT >0){
+					if(hakalN >0){
 				%>
 					바칼 레이드(하드)
 				<%
-					for(int i = 1; i <= hakalT / 4; i++){
+					for(int i = 1; i <= hakalN / 4; i++){
 				%>
-						<input type='radio' value='<%=i%>'>벞교<%=i%>세트
+						<input type='radio' name="hakalTn" value='<%=i%>' onclick="hakalTimeCal();">벞교<%=i%>세트
 				<%	
 					}
 				%><br>
@@ -510,13 +528,13 @@
 				}
 				%>
 				<%
-					if(adukT >0){
+					if(adukN > 0){
 				%>
 					어둑섬
 				<%
-					for(int i = 1; i <= adukT / 4; i++){
+					for(int i = 0; i < adukN / 4; i++){
 				%>
-						<input type='radio' value='<%=i%>'>벞교<%=i%>세트
+						<input type='radio' name="adukTn" value='<%=i%>' onclick="adukTimeCal();">벞교<%=i%>세트
 				<%	
 					}
 				%><br>
@@ -550,7 +568,7 @@
 							}
 							}
 						%>
-						<input type="submit" value="모험단 업데이트">
+						<input type="submit" value="모험단 업데이트"><label>모험단에 캐릭터가 많을수록 조회가 오래 걸릴 수 있습니다.</label>
 					</form>
 				</section>
 	<footer>
