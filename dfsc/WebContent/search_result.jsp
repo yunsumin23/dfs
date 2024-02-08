@@ -387,6 +387,7 @@
 				 			case THURSDAY:
 				 				break;
 				 			case FRIDAY:
+
 				 				break;
 				 			default:
 								out.println("<span id='d_name'>바칼레이드</span>(기계혁명:개전 | 바칼 레이드(일반) | 바칼 레이드(하드))<br>");
@@ -418,13 +419,21 @@
 					int hakalN = (hakal - hakal2);
 					int adukN = (aduk - aduk2);
 					
-					int ispinsT = ispinsN * 6;
-					int hyerangT = hyerangN * 4;
-					int gaegeonT = gaegeonN * 8;
-					int ilkalT = ilkalN * 20;
-					int emyeonT = emyeonN * 7;
-					int hakalT = hakalN * 20;
-					int adukT = adukN * 10;
+					int ispinsT = (espins + espins2) * 6;
+					int hyerangT = hyerang * 4;
+					int gaegeonT = gaegeon * 8;
+					int ilkalT = ilkal * 20;
+					int emyeonT = emyeon * 7;
+					int hakalT = hakal * 20;
+					int adukT = aduk * 10;
+					
+					int ispinsT2 = ispins2 * 6;
+					int hyerangT2 = hyerang2 * 4;
+					int gaegeonT2 = gaegeon2 * 8;
+					int ilkalT2 = ilkal2 * 20;
+					int emyeonT2 = emyeon2 * 7;
+					int hakalT2 = hakal2 * 20;
+					int adukT2 = aduk2 * 10;
 					
 				%>
 
@@ -436,10 +445,22 @@
 					<input type="hidden" id="hakalT" value="<%=hakalT%>">
 					<input type="hidden" id="adukT" value="<%=adukT%>">
 				<%	
-					int totalTime = ispinsT + hyerangT + gaegeonT + ilkalT + emyeonT + hakalT + adukT;
+					int totalTime = ispinsT + hyerangT + gaegeonT + ilkalT + emyeonT + hakalT + adukT; // 총 시간
+					int totalTime2 = ispinsT2 + hyerangT2 + gaegeonT2 + ilkalT2 + emyeonT2 + hakalT2 + adukT2; // 던전 돈 시간
+					
+					int raidTime = gaegeonT + ilkalT + hakalT; // 레이드 총 시간
+					int raidTime2 = gaegeonT2 + ilkalT2 + hakalT2; //레이드 돈 시간
+					
+					int resultTime = totalTime - totalTime2; //총 시간 - 던전 돈시간 = 남은 시간
+					int resultTime2 = totalTime - raidTime; //총시간 - 레이드 총 시간
+					int resultTime3 = totalTime - totalTime2 - raidTime; //총시간 -던전 돈 시간 - 레이드 총 시간
+					
 			
-					int hours = totalTime / 60;  // 분을 시간으로 변환
-					int minutes = totalTime % 60;  // 나머지는 분
+					int hours = resultTime / 60;  // 분을 시간으로 변환
+					int minutes = resultTime % 60;  // 나머지는 분
+					
+					int hours2 = resultTime3 / 60;  // 분을 시간으로 변환
+					int minutes2 = resultTime3 % 60;  // 나머지는 분
 				%>
 					<input type="hidden" id="totalTimeElementId" value ="<%=totalTime%>">
 				<%
@@ -448,7 +469,7 @@
 					이스핀즈
 					<select>
 				<%
-					for(int i = 1; i <= ispinsN / 4; i++){
+					for(int i = 0; i <= ispinsN / 4; i++){
 				%>
 						<option value='<%=i%>'>벞교<%=i%>세트
 				<%	
@@ -472,39 +493,51 @@
 				}
 				%>
 				<%
-					if(gaegeonN >0){
+					switch (dayOfWeek) {
+	 				case THURSDAY:
+	 					break;
+	 				case FRIDAY:
+	 					break;
+	 				default:
+						if(gaegeonN >0){
 				%>
-					기계혁명 : 개전
+						기계혁명 : 개전
 				<%
-					for(int i = 1; i <= gaegeonN / 4; i++){
+						for(int i = 0; i <= gaegeonN / 4; i++){
 				%>
-						<input type='radio' value='<%=i%>'>벞교<%=i%>세트
+							<input type='radio' value='<%=i%>'>벞교<%=i%>세트
 				<%	
-					}
+						}
 				%><br>
 				<%
-				}
+					}}
 				%>
 				<%
-					if(ilkalN >0){
+					switch (dayOfWeek) {
+	 				case THURSDAY:
+	 					break;
+	 				case FRIDAY:
+	 					break;
+	 				default:
+						if(ilkalN >0){
 				%>
-					바칼 레이드(일반)
+						바칼 레이드(일반)
 				<%
-					for(int i = 1; i <= ilkalN / 4; i++){
+						for(int i = 0; i <= ilkalN / 4; i++){
 				%>
-						<input type='radio' value='<%=i%>'>벞교<%=i%>세트
+							<input type='radio' value='<%=i%>'>벞교<%=i%>세트
 				<%	
-					}
+						}
 				%><br>
 				<%
-				}
+					}}
 				%>
 				<%
 					if(emyeonN >0){
 				%>
 					이면 경계
 				<%
-					for(int i = 1; i <= emyeonN / 4; i++){
+					for(int i = 0; i <= emyeonN / 4; i++){
 				%>
 						<input type='radio' value='<%=i%>'>벞교<%=i%>세트
 				<%	
@@ -514,18 +547,24 @@
 				}
 				%>
 				<%
-					if(hakalN >0){
+					switch (dayOfWeek) {
+	 				case THURSDAY:
+	 					break;
+	 				case FRIDAY:
+	 					break;
+	 				default:
+						if(hakalN > 0){
 				%>
-					바칼 레이드(하드)
+						바칼 레이드(하드)
 				<%
-					for(int i = 1; i <= hakalN / 4; i++){
+						for(int i = 0; i <= hakalN / 4; i++){
 				%>
-						<input type='radio' name="hakalTn" value='<%=i%>' onclick="hakalTimeCal();">벞교<%=i%>세트
+							<input type='radio' name="hakalTn" value='<%=i%>' onclick="hakalTimeCal();">벞교<%=i%>세트
 				<%	
-					}
+						}
 				%><br>
 				<%
-				}
+					}}
 				%>
 				<%
 					if(adukN > 0){
@@ -542,9 +581,21 @@
 				}
 				%>
 				<%
-
-					out.println("예상 시간 : " + hours + "시간 " + minutes + "분");
+					switch (dayOfWeek) {
+	 				case THURSDAY:
+	 					out.println("예상 시간 : " + resultTime3 + " / "+ resultTime2 + "(" + totalTime + ")");
+						out.println("예상 시간 : " + hours2 + "시간 " + minutes2 + "분");
+	 					break;
+	 				case FRIDAY:
+	 					out.println("예상 시간 : " + resultTime3 + " / "+ resultTime2 + "(" + totalTime + ")");
+						out.println("예상 시간 : " + hours2 + "시간 " + minutes2 + "분");
+	 					break;
+	 				default:
+	 					out.println("예상 시간 : " + resultTime + " / "+ totalTime + " ");
+						out.println("예상 시간 : " + hours + "시간 " + minutes + "분");
+					}
 				%>
+				
 			</td>
 		</tr>
 	</table>

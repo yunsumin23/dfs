@@ -27,20 +27,23 @@ function hyerangTimeCal() {
             "hyerangT": hyerangT // 단일한 값을 직접 전송
         },
         success: function (result) { // 결과 성공 콜백함수
-        	updateTotalTime();
-//            console.log(result);
+        	var totalTimeGetTime = document.getElementById("totalTimeElementId").value;
+        	updateTotalTime(totalTimeGetTime);
+//        	console.log(result);
+            
         },
         error: function (request, status, error) { // 결과 에러 콜백함수
             console.log(error);
         }
     });
 }
-function updateTotalTime() {
+function updateTotalTime(totalTimeGetTime) {
     // hyerangT를 이용하여 totalTime을 계산 (가정: 특정한 계산 방식 사용)
-    var totalTime = hyerangT * 2; // 예시: hyerangT를 2배로 설정
-
+    var totalTime = totalTimeGetTime; // 예시: hyerangT를 2배로 설정
+    console.log(totalTime);
+    console.log(totalTimeGetTime);
     // totalTime을 HTML 엘리먼트에 업데이트
-    document.getElementById('totalTimeElementId').value = totalTime;
+    document.getElementById('totalTimeElementId').innerHTML = totalTime;
 }
 
 function hakalTimeCal() {
@@ -49,7 +52,8 @@ function hakalTimeCal() {
 
 	for (var i = 0; i < hakalTElements.length; i++) {
 		if (hakalTElements[i].checked) {
-			selectedValue = hakalTElements[i].value;
+			
+			xselectedValue = hakalTElements[i].value;
 			break;
 		}
 	}
